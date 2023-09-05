@@ -69,4 +69,22 @@ public class TestBMICalculatorIT {
         }
     }
 
+        @Test
+    public void testCaclulate3() {
+
+        // Make a HTTP GET request to retrieve the last created Parolee.
+        try (Response response = client.target(WEB_URI+"?weight=70&height=1.66").request().get()) {
+
+            // Check that the HTTP response code is 200 OK.
+            int responseCode = response.getStatus();
+            assertEquals(200, responseCode);
+
+            String jsonResponse = response.readEntity(String.class);
+            assertThat(jsonResponse, CoreMatchers.containsString("Result is 25"));
+
+            assertThat(jsonResponse, CoreMatchers.containsString("overweight"));
+            _logger.info("IT1 test passed");
+        }
+    }
+
 }
